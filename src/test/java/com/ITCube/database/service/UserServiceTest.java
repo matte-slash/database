@@ -36,7 +36,7 @@ public class UserServiceTest {
 
         final var actual=service.create(new User());
 
-        assertThat(actual.getBody()).isEqualTo(u);
+        assertThat(actual).isEqualTo(u);
         verify(rep, times(1)).save(any(User.class));
         verifyNoMoreInteractions(rep);
     }
@@ -91,7 +91,7 @@ public class UserServiceTest {
 
         final var actual=service.update(anyLong(),_newUser);
 
-        assertThat(actual.getBody()).isEqualTo(_newUser);
+        assertThat(actual).isEqualTo(_newUser);
         verify(rep, times(1)).save(any(User.class));
         verify(rep, times(1)).findById(anyLong());
         verifyNoMoreInteractions(rep);

@@ -31,6 +31,7 @@ public class UserController {
         return service.list();
     }
 
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{nome}")
     public List<User> byName(@PathVariable String nome){
@@ -40,25 +41,31 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User u){
+    public User create(@RequestBody User u){
 
         logger.info("POST");
+
         return service.create(u);
 
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable long id){
+    public void delete(@PathVariable long id){
         logger.info("DELETE");
-        return service.delete(id);
+        service.delete(id);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable long id, @RequestBody User u){
         logger.info("PUT");
-        return service.update(id, u);
+        User result= service.update(id, u);
+        if(result!=null){
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
 
     }
 

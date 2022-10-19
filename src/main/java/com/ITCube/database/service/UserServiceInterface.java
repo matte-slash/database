@@ -12,12 +12,11 @@ public interface UserServiceInterface {
 
     List<User> byNome(String nome);
 
-    ResponseEntity<User> create(User u);
+    User create(User u);
 
-    ResponseEntity<HttpStatus> delete(long id);
+    void delete(long id);
 
-    ResponseEntity<User> update(long id, User u);
-
+    User update(long id, User u);
 
 
 }

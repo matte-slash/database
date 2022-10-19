@@ -46,30 +46,21 @@ public class UserService implements UserServiceInterface{
 
     }
 
-    public ResponseEntity<User> create(User u) {
+    public User create(User u) {
 
-        try{
-            User user=rep.save(new User(u.getNome(), u.getCognome(), u.getEmail(), u.getCitta()));
-            return new  ResponseEntity<>(user , HttpStatus.CREATED);
-        }catch(Exception e){
-            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+       User result= rep.save(new User(u.getNome(), u.getCognome(), u.getEmail(), u.getCitta()));
+
+       return result;
 
     }
 
-    public ResponseEntity<HttpStatus> delete(long id) {
+    public void delete(long id) {
 
-        try{
-            rep.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
+       rep.deleteById(id);
 
     }
 
-    public ResponseEntity<User> update(long id, User u) {
+    public User update(long id, User u) {
 
         Optional<User> userData=rep.findById(id);
         if(userData.isPresent()) {
@@ -78,10 +69,11 @@ public class UserService implements UserServiceInterface{
             user.setCognome(u.getCognome());
             user.setEmail(u.getEmail());
             user.setCitta(u.getCitta());
-            return new ResponseEntity<>(rep.save(user), HttpStatus.OK);
+            return rep.save(user);
         }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return null;
         }
 
     }
+
 }

@@ -29,7 +29,7 @@ public class UserServiceIntegrationTest {
         User expected=new User("Matteo", "Rosso", "matteo@gmail.com", "Grosseto");
 
         //Action
-        User found=service.create(expected).getBody();
+        User found=service.create(expected);
 
 
         //Assert
@@ -112,10 +112,10 @@ public class UserServiceIntegrationTest {
         //Arrange
         User u1=new User("Claudio", "Rosso", "@gmail.com", "Grosseto");
         User u2=new User("Claudio", "Rosso", "NuovEmail@gmail.com", "Grosseto");
-        u1=service.create(u1).getBody();
+        u1=service.create(u1);
 
         //Action
-        User expected = service.update(u1.getId(),u2).getBody();
+        User expected = service.update(u1.getId(),u2);
 
         //Assert
         assertThat(expected).isNotNull();

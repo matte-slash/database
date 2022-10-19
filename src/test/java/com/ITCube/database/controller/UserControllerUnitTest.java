@@ -9,9 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -19,6 +17,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -71,7 +70,7 @@ public class UserControllerUnitTest {
 
         User expected=new User("Matteo","Rosso","matteo@gmail.com","Grosseto");
 
-        when(serv.create(any(User.class))).thenReturn(new ResponseEntity(expected, HttpStatus.OK));
+        when(serv.create(any(User.class))).thenReturn(expected);
 
         Gson gson = new Gson();
 
@@ -80,7 +79,7 @@ public class UserControllerUnitTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(gson.toJson(expected)))
                 .andDo(print())
-                .andExpect(status().isOk())                                         //200 e non 201??
+                .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.nome").value("Matteo"))
                 .andExpect(jsonPath("$.cognome").value("Rosso"));
@@ -90,11 +89,11 @@ public class UserControllerUnitTest {
     @Test
     void testDelete() throws Exception {
 
-        when(serv.delete(anyLong())).thenReturn(new ResponseEntity( HttpStatus.OK));
+        doNothing().when(serv).delete(anyLong());
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/users/55"))    //Url ok?
+        mockMvc.perform(MockMvcRequestBuilders.delete("/users/55"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
     }
 
@@ -103,7 +102,7 @@ public class UserControllerUnitTest {
 
         User expected=new User("Matteo","Rosso","matteo@gmail.com","Grosseto");
 
-        when(serv.update(anyLong(), any(User.class))).thenReturn(new ResponseEntity(expected, HttpStatus.OK));
+        when(serv.update(anyLong(), any(User.class))).thenReturn(expected);
 
         Gson gson = new Gson();
 
