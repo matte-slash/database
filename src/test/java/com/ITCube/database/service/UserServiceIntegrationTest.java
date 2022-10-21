@@ -83,6 +83,7 @@ public class UserServiceIntegrationTest {
         logger.info("Test_Nome");
     }
 
+    /*
     @Order(4)
     @Test
     void testDelete(){
@@ -104,6 +105,8 @@ public class UserServiceIntegrationTest {
 
         logger.info("Test_Delete");
     }
+
+     */
 
     @Test
     @Order(5)

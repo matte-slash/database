@@ -1,9 +1,7 @@
 package com.ITCube.database.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table (name="Utente")
@@ -12,13 +10,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @NotBlank(message= "The name is required")
     private String nome;
-
+    @NotBlank(message= "The surname is required")
     private String cognome;
-
+    @NotBlank(message= "The email is required")
     private String email;
-
+    @NotBlank(message= "The city is required")
     @Column(name = "Città")
     private String citta;
 
