@@ -7,13 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UserServiceIntegrationTest {
 
     @Autowired
@@ -23,7 +24,6 @@ public class UserServiceIntegrationTest {
 
 
 
-    @Order(2)
     @Test
     void testCreate(){
         //Arrange
@@ -43,7 +43,6 @@ public class UserServiceIntegrationTest {
 
     }
 
-    @Order(1)
     @Test
     void testList(){
 
@@ -63,7 +62,6 @@ public class UserServiceIntegrationTest {
 
     }
 
-    @Order(3)
     @Test
     void testByNome(){
 
@@ -85,7 +83,6 @@ public class UserServiceIntegrationTest {
     }
 
 
-    @Order(4)
     @Test
     void testDelete(){
 
@@ -100,16 +97,12 @@ public class UserServiceIntegrationTest {
 
         //Assert
         assertThat(l).isNotNull();
-        assertThat(l.size()).isEqualTo(4);
-        assertThat(l.get(3).getId()).isEqualTo(5);
-        assertThat(l.get(3).getNome()).isEqualTo(u1.getNome());
+        assertThat(l.size()).isEqualTo(0);
 
         logger.info("Test_Delete");
     }
 
-
     @Test
-    @Order(5)
     void testUpdate() throws ResourceNotFoundException {
 
         //Arrange
