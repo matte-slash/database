@@ -23,7 +23,6 @@ public class UserServiceIntegrationTest {
     Logger logger= LoggerFactory.getLogger(UserServiceIntegrationTest.class);
 
 
-
     @Test
     void testCreate(){
         //Arrange
