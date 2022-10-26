@@ -2,10 +2,11 @@ package com.ITCube.database.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.xml.transform.Source;
 
 @Entity
 @Table (name="Utente")
-public class User {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
