@@ -1,5 +1,6 @@
 package com.ITCube.database.service;
 
+import com.ITCube.database.exception.ResourceNotFoundException;
 import com.ITCube.database.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public interface UserServiceInterface {
 
     void delete(long id);
 
-    User update(long id, User u);
+    User update(long id, User u) throws ResourceNotFoundException;
 
 
 }

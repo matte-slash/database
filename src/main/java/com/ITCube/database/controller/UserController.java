@@ -78,17 +78,11 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@Min(value = 1 , message= "Id must be equal or more than 1")
+    public User update(@Min(value = 1 , message= "Id must be equal or more than 1")
                                                   @PathVariable long id,
-                                              @Valid @RequestBody User u) throws ResourceNotFoundException {
+                                              @Valid @RequestBody User u) throws ResourceNotFoundException{
         logger.info("PUT");
-        User result= service.update(id, u);
-
-        if(result!=null){
-            return new ResponseEntity<>(result,HttpStatus.OK);
-        }else{
-            throw new ResourceNotFoundException("User with id "+id +" is not present");
-        }
+        return service.update(id, u);
 
     }
 

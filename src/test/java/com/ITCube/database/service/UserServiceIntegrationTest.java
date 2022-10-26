@@ -1,5 +1,6 @@
 package com.ITCube.database.service;
 
+import com.ITCube.database.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.*;
 import com.ITCube.database.model.User;
 import org.slf4j.Logger;
@@ -109,7 +110,7 @@ public class UserServiceIntegrationTest {
 
     @Test
     @Order(5)
-    void testUpdate(){
+    void testUpdate() throws ResourceNotFoundException {
 
         //Arrange
         User u1=new User("Claudio", "Rosso", "@gmail.com", "Grosseto");
